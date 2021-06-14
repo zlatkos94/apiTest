@@ -22,7 +22,7 @@ class CustomerController extends AbstractController
     }
 
     /**
-     * @Route("/add", name="add_customer", methods={"POST"})
+     * @Route("/customer", name="add_customer", methods={"POST"})
      */
     public function add(Request $request)
     {
@@ -45,7 +45,7 @@ class CustomerController extends AbstractController
     }
 
     /**
-     * @Route("/get-all", name="get_all_customers", methods={"GET"})
+     * @Route("/customer", name="get_all_customers", methods={"GET"})
      */
     public function getAllCustomers(): JsonResponse
     {
@@ -66,7 +66,7 @@ class CustomerController extends AbstractController
     }
 
     /**
-     * @Route("/get/{id}", name="get_one_customer", methods={"GET"})
+     * @Route("/customer/{id}", name="get_one_customer", methods={"GET"})
      */
     public function getOneCustomer($id): JsonResponse
     {
@@ -84,14 +84,15 @@ class CustomerController extends AbstractController
     }
 
     /**
-     * @Route("/update/{id}", name="update_customer", methods={"PUT"})
+     * @Route("/customer/{id}", name="update_customer", methods={"PUT"})
      */
-    public function updateCustomer(Request $request, int $id): JsonResponse {
+    public function updateCustomer(Request $request, int $id): JsonResponse
+    {
 
-        $customer = $this->customerRepository->findOneBy(['id'=>$id]);
-        $data = json_decode($request->getContent(),true);
+        $customer = $this->customerRepository->findOneBy(['id' => $id]);
+        $data = json_decode($request->getContent(), true);
 
-        $this->customerRepository->updateCustomer($customer,$data);
+        $this->customerRepository->updateCustomer($customer, $data);
 
         return new JsonResponse(['status' => 'customer updated!']);
 
