@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\City;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -14,9 +15,24 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class CityRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private $manager;
+
+    public function __construct(ManagerRegistry $registry,EntityManagerInterface $entityManager)
     {
         parent::__construct($registry, City::class);
+        $this->manager=$entityManager;
+    }
+
+    /**
+     * @param $name
+     */
+    public function saveCity($name){
+        $newCity= new City();
+
+        $newCity
+            ->setName($name);
+        $this->manager->persist($newCity);
+        $this->manager->flush();
     }
 
     // /**
