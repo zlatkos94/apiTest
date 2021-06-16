@@ -37,6 +37,12 @@ class Customer
      */
     private $phoneNumber;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=City::class, inversedBy="customers")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $city;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,6 +92,18 @@ class Customer
     public function setPhoneNumber(string $phoneNumber): self
     {
         $this->phoneNumber = $phoneNumber;
+
+        return $this;
+    }
+
+    public function getCity(): ?City
+    {
+        return $this->city;
+    }
+
+    public function setCity(?City $city): self
+    {
+        $this->city = $city;
 
         return $this;
     }
